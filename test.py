@@ -6,10 +6,8 @@ from account import Account
 class TestATMController(unittest.TestCase):
     def setUp(self):  # 테스트 전 실행할 초기화 작업
         self.bank = Bank()
-        self.bank.accounts = {
-            '1234': Account(1000), # 두 개의 테스트 계좌 생성
-            '5678': Account(2000)
-        }
+        self.bank.add_account('1234', 1000) # 메서드를 통해 계정 추가
+        self.bank.add_account('5678', 2000)
         self.atm = ATM(self.bank) # 테스트용 ATM 객체 생성
 
     def test_insert_card(self): # 카드 삽입 테스트
@@ -18,7 +16,7 @@ class TestATMController(unittest.TestCase):
     def test_select_account(self): # 계좌 선택 테스트
         self.atm.insert_card('1234', '1111')
         self.atm.select_account('1234')
-        self.assertEqual(self.atm.current_account, self.bank.accounts['1234'])
+        self.assertEqual(self.atm.current_account, self.bank._accounts['1234'])
 
     def test_see_balance(self): # 잔액 확인 테스트
         self.atm.insert_card('1234', '1111')
