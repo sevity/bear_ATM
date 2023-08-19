@@ -1,26 +1,27 @@
 from bank import Bank
-from account import Account
 
 class ATM:
     def __init__(self, bank):
         self.bank = bank
-        self.current_account = None
+        self.current_card = None
+        self.current_accounts = None
 
-    def insert_card(self, account_id, pin):
-        if self.bank.validate_pin(pin):
-            self.current_account = self.bank.get_account(account_id)
-            return True
-        else:
-            return False
+    def insert_card(self, card_number):
+        self.current_card = card_number
+        return True
 
-    def select_account(self, account_id):
-        self.current_account = self.bank.get_account(account_id)
+    def check_pin(self, pin):
+        return self.bank.validate_pin(pin)
 
-    def see_balance(self):
-        return self.current_account.get_balance()
+    def select_accounts(self):
+        self.current_accounts = self.bank.get_accounts(self.current_card)
+        return self.current_accounts
 
-    def deposit(self, amount):
-        self.current_account.deposit(amount)
+    def balance(self, account_number):
+        return self.bank.get_balance(account_number)
 
-    def withdraw(self, amount):
-        return self.current_account.withdraw(amount)
+    def deposit(self, account_number, amount):
+        return self.bank.deposit(account_number, amount)
+
+    def withdraw(self, account_number, amount):
+        return self.bank.withdraw(account_number, amount)
