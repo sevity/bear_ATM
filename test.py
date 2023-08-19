@@ -8,7 +8,7 @@ class TestATMController(unittest.TestCase):
         self.bank = Bank()
         self.bank.add_account('card1', '1234', Account(1000)) # 카드에 속한 계정 추가
         self.bank.add_account('card1', '5678', Account(2000))
-        self.atm = ATM(self.bank, 3000) # 테스트용 ATM 객체 생성
+        self.atm = ATM(self.bank, 1000, 3000) # 테스트용 ATM 객체 생성
 
     def test_insert_card(self): # 카드 삽입 테스트
         self.assertTrue(self.atm.insert_card('card1')) # 카드 검증이 항상 True라고 가정
@@ -39,6 +39,14 @@ class TestATMController(unittest.TestCase):
         success = self.atm.withdraw(accounts[0], 300) # 300 출금
         self.assertTrue(success) # 출금 성공 확인
         self.assertEqual(self.bank.get_balance(accounts[0]), 700) # 최종 잔액 700 확인
+
+    def test_deposit_exceeding_cash_bin_capacity(self): # 현금함 최대치 초과 입금 테스트
+        self.atm.insert_card('card1')
+        self.atm.check_pin('1111')
+        accounts = self.atm.select_accounts()
+        success = self.atm.deposit(accounts[0], 2500) # 현금함 최대 저장치 초과로 2500 입금 시도
+        self.assertFalse(success) # 입금 실패 확인
+        self.assertEqual(self.bank.get_balance(accounts[0]), 1000) # 초기 잔액과 일치해야 함
 
 if __name__ == "__main__":
     unittest.main()
