@@ -4,6 +4,7 @@ class Account:
 
     def deposit(self, amount):
         self.balance += amount
+        return True
 
     def withdraw(self, amount):
         if self.balance >= amount:

@@ -6,8 +6,8 @@ from account import Account
 class TestATMController(unittest.TestCase):
     def setUp(self):  # 테스트 전 실행할 초기화 작업
         self.bank = Bank()
-        self.bank.add_account('1234', Account(1000)) # 메서드를 통해 계정 추가
-        self.bank.add_account('5678', Account(2000))
+        self.bank.add_account('card1', '1234', Account(1000)) # 카드에 속한 계정 추가
+        self.bank.add_account('card1', '5678', Account(2000))
         self.atm = ATM(self.bank) # 테스트용 ATM 객체 생성
 
     def test_insert_card(self): # 카드 삽입 테스트
