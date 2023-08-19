@@ -25,6 +25,11 @@ ATM 컨트롤러의 주요 기능을 테스트합니다. 현금함의 잔액 부
 
 ## 빌드 및 실행
 
+### 프로젝트 clone
+이 프로젝트를 로컬로 clone하려면 다음 명령어를 실행하세요:
+```bash
+git clone https://github.com/sevity/bear_ATM.git
+
 ### 설치
 외부 디펜던시가 없어 특별한 설치과정이 필요없습니다.
 
