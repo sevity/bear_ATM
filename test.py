@@ -48,5 +48,12 @@ class TestATMController(unittest.TestCase):
         self.assertFalse(success) # 입금 실패 확인
         self.assertEqual(self.bank.get_balance(accounts[0]), 1000) # 초기 잔액과 일치해야 함
 
+    def test_withdraw_insufficient_cash_bin_balance(self): # 현금함 잔액 부족 출금 테스트
+        self.atm.insert_card('card1')
+        self.atm.check_pin('1111')
+        accounts = self.atm.select_accounts()
+        success = self.atm.withdraw(accounts[0], 20000) # 현금함 잔액 부족 테스트
+        self.assertFalse(success) # 출금 실패 확인
+        self.assertEqual(self.bank.get_balance(accounts[0]), 1000) # 초기 잔액과 일치해야 함
 if __name__ == "__main__":
     unittest.main()

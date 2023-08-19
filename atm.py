@@ -39,7 +39,7 @@ class ATM:
         return success
 
     def withdraw(self, account_number, amount):
-        success = self.bank.withdraw(account_number, amount)
+        success = self.cash_bin.withdraw(amount) # 현금함에서 먼저 인출 시도
         if success:
-            success = self.cash_bin.withdraw(amount) # 현금함에서 출금
+            success = self.bank.withdraw(account_number, amount)
         return success
