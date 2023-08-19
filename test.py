@@ -8,7 +8,7 @@ class TestATMController(unittest.TestCase):
         self.bank = Bank()
         self.bank.add_account('card1', '1234', Account(1000)) # 카드에 속한 계정 추가
         self.bank.add_account('card1', '5678', Account(2000))
-        self.atm = ATM(self.bank) # 테스트용 ATM 객체 생성
+        self.atm = ATM(self.bank, 3000) # 테스트용 ATM 객체 생성
 
     def test_insert_card(self): # 카드 삽입 테스트
         self.assertTrue(self.atm.insert_card('card1')) # 카드 검증이 항상 True라고 가정
