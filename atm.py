@@ -1,14 +1,24 @@
 from bank import Bank
+from card_reader import CardReader
+
 
 class ATM:
     def __init__(self, bank):
         self.bank = bank
         self.current_card = None
         self.current_accounts = None
+        self.card_reader = CardReader() # 카드 리더 객체 생성
+
 
     def insert_card(self, card_number):
-        self.current_card = card_number
-        return True
+        if self.card_reader.insert_card(card_number):
+            self.current_card = card_number
+            return True
+        return False
+    
+    def eject_card(self):
+        self.current_card = None
+        self.card_reader.eject_card()
 
     def check_pin(self, pin):
         return self.bank.validate_pin(pin)
